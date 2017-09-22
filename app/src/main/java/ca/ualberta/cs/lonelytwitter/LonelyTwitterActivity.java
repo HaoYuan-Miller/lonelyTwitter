@@ -30,7 +30,6 @@ public class LonelyTwitterActivity extends Activity {
 	private static final String FILENAME = "file.sav";
 	private EditText bodyText;
 	private ListView oldTweetsList;
-
 	private ArrayList<Tweet> tweets = new ArrayList<Tweet>();
 	private ArrayAdapter<Tweet> adapter;
 	
@@ -42,19 +41,30 @@ public class LonelyTwitterActivity extends Activity {
 
 		bodyText = (EditText) findViewById(R.id.body);
 		Button saveButton = (Button) findViewById(R.id.save);
+		Button clearButton = (Button) findViewById(R.id.clear);
 		oldTweetsList = (ListView) findViewById(R.id.oldTweetsList);
 
 
-			saveButton.setOnClickListener(new View.OnClickListener() {
-				public void onClick(View v) {
-					setResult(RESULT_OK);
-					String text = bodyText.getText().toString();
+		saveButton.setOnClickListener(new View.OnClickListener() {
+			public void onClick(View v) {
+				setResult(RESULT_OK);
+				String text = bodyText.getText().toString();
 
-					tweets.add(new NormalTweet(text));
-					adapter.notifyDataSetChanged();
-					saveInFile();
-				}
-			});
+				tweets.add(new NormalTweet(text));
+				adapter.notifyDataSetChanged();
+				saveInFile();
+			}
+		});
+
+		clearButton.setOnClickListener(new View.OnClickListener(){
+
+			public void onClick(View v){
+				tweets.clear();
+				adapter.notifyDataSetChanged();
+				saveInFile();
+			}
+		});
+
 	}
 
 	@Override
