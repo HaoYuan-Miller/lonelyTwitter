@@ -58,7 +58,9 @@ public class ElasticsearchTweetController {
             ArrayList<NormalTweet> tweets = new ArrayList<NormalTweet>();
 
                 // TODO Build the query
-            Search search = new Search.Builder(search_parameters[0])
+            String query = "{ \"query\" : {  \"term\" : {\"message\" : \""  + search_parameters[0] + "\"}}}";
+            Log.i("passed query: ",query);
+            Search search = new Search.Builder(query)
                     .addIndex("testing")
                     .addType("tweet")
                     .build();

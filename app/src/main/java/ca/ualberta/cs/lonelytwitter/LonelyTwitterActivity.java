@@ -43,7 +43,8 @@ public class LonelyTwitterActivity extends Activity {
 
 		bodyText = (EditText) findViewById(R.id.body);
 		Button saveButton = (Button) findViewById(R.id.save);
-		Button clearButton = (Button) findViewById(R.id.clear);
+//		Button clearButton = (Button) findViewById(R.id.clear);
+		Button searchButton = (Button) findViewById(R.id.save);
 		oldTweetsList = (ListView) findViewById(R.id.oldTweetsList);
 
 		saveButton.setOnClickListener(new View.OnClickListener() {
@@ -60,16 +61,36 @@ public class LonelyTwitterActivity extends Activity {
 
 			}
 		});
-
-		clearButton.setOnClickListener(new View.OnClickListener() {
-
-			public void onClick(View v) {
+		searchButton.setOnClickListener(new View.OnClickListener(){
+			public void onClick(View v){
 				setResult(RESULT_OK);
-				tweetList.clear();
-				deleteFile(FILENAME);  // TODO deprecate this button
+				String text = bodyText.getText().toString();
+
+				ElasticsearchTweetController.GetTweetsTask getTweetsTask = new ElasticsearchTweetController.GetTweetsTask();
+				getTweetsTask.execute(text);
+				try{
+					tweetList.clear();
+					tweetList.addAll(getTweetsTask.get());
+					Log.i("number of tweets", "" + tweetList.size());
+
+				}catch(Exception e){
+					Log.i("Error","Failed to get the tweets from the async object");
+				}
 				adapter.notifyDataSetChanged();
+
 			}
 		});
+
+
+//		clearButton.setOnClickListener(new View.OnClickListener() {
+//
+//			public void onClick(View v) {
+//				setResult(RESULT_OK);
+//				tweetList.clear();
+//				deleteFile(FILENAME);  // TODO deprecate this button
+//				adapter.notifyDataSetChanged();
+//			}
+//		});
 
 
 	}
