@@ -44,7 +44,7 @@ public class LonelyTwitterActivity extends Activity {
 		bodyText = (EditText) findViewById(R.id.body);
 		Button saveButton = (Button) findViewById(R.id.save);
 //		Button clearButton = (Button) findViewById(R.id.clear);
-		Button searchButton = (Button) findViewById(R.id.save);
+		Button searchButton = (Button) findViewById(R.id.search);
 		oldTweetsList = (ListView) findViewById(R.id.oldTweetsList);
 
 		saveButton.setOnClickListener(new View.OnClickListener() {
@@ -101,7 +101,7 @@ public class LonelyTwitterActivity extends Activity {
 		super.onStart();
 //		loadFromFile(); // TODO replace this with elastic search
 		ElasticsearchTweetController.GetTweetsTask getTweetsTask = new ElasticsearchTweetController.GetTweetsTask();
-		getTweetsTask.execute("");
+		getTweetsTask.execute("happy");
 		try{
 			tweetList = getTweetsTask.get();
 		}
