@@ -1,5 +1,7 @@
 package ca.ualberta.cs.lonelytwitter;
 
+
+// deleted 2 unused imports
 import java.io.BufferedReader;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -9,10 +11,8 @@ import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
-import java.util.Date;
 
 import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -27,11 +27,11 @@ import com.google.gson.reflect.TypeToken;
 
 public class LonelyTwitterActivity extends Activity {
 
-	private Activity activity = this;
+	private final Activity activity = this; //made final
 	private static final String FILENAME = "file.sav";
 	private EditText bodyText;
 	private ListView oldTweetsList;
-	protected static ArrayList<Tweet> tweetList = new ArrayList<Tweet>();
+	static ArrayList<Tweet> tweetList = new ArrayList<Tweet>();  //deleted access modifier "protected" since declaration access can be weaker
 	private ArrayAdapter<Tweet> adapter;
 
 	@Override
